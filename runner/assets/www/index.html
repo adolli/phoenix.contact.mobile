@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>no title</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+        <script src="jquery-1.8.3.min.js"></script>
+        <script src="jquery.mobile-1.4.5.min.js"></script>
+        <script src="cordova.js"></script>
+
+        <script type="text/javascript" src="js/qr/src/grid.js"></script>
+        <script type="text/javascript" src="js/qr/src/version.js"></script>
+        <script type="text/javascript" src="js/qr/src/detector.js"></script>
+        <script type="text/javascript" src="js/qr/src/formatinf.js"></script>
+        <script type="text/javascript" src="js/qr/src/errorlevel.js"></script>
+        <script type="text/javascript" src="js/qr/src/bitmat.js"></script>
+        <script type="text/javascript" src="js/qr/src/datablock.js"></script>
+        <script type="text/javascript" src="js/qr/src/bmparser.js"></script>
+        <script type="text/javascript" src="js/qr/src/datamask.js"></script>
+        <script type="text/javascript" src="js/qr/src/rsdecoder.js"></script>
+        <script type="text/javascript" src="js/qr/src/gf256poly.js"></script>
+        <script type="text/javascript" src="js/qr/src/gf256.js"></script>
+        <script type="text/javascript" src="js/qr/src/decoder.js"></script>
+        <script type="text/javascript" src="js/qr/src/qrcode.js"></script>
+        <script type="text/javascript" src="js/qr/src/findpat.js"></script>
+        <script type="text/javascript" src="js/qr/src/alignpat.js"></script>
+        <script type="text/javascript" src="js/qr/src/databr.js"></script>
+
+        <script src="js/api.camera.js"></script>
+        <script type="text/javascript">
+            
+            function getViewportSize() {
+                var w = (window.innerWidth) ? window.innerWidth : (document.documentElement && document.documentElement.clientWidth) ? document.documentElement.clientWidth : document.body.offsetWidth;
+                var h = (window.innerHeight) ? window.innerHeight : (document.documentElement && document.documentElement.clientHeight) ? document.documentElement.clientHeight : document.body.offsetHeight;
+                return { w:w, h:h }; 
+            };
+
+
+            $(document).ready(function(){
+                $("img").css("width", getViewportSize().w * 0.9);
+            });
+
+            function read(a) {
+                console.log(a);
+                $("#qrContent").text(a);
+            }
+
+            function captureAndDecode() {
+                navigator.camera.getPicture(function(image) {
+                    qrcode.callback = read; 
+                    qrcode.decode("data:image/jpeg;base64," + image);
+                    console.log("decoding");
+                }, function(e) {
+                    console.log("camera error: " + e);
+                }, { 
+                    quality: 40,
+                    destinationType: destinationType.DATA_URL,
+                    targetWidth: 800,
+                    targetHeight: 600
+                }); 
+            }
+        </script>
+    </head>
+    <body>
+
+        <div data-role="page">
+            <div data-role="header">
+                <a href="#about" data-rel="dialog" data-transition="pop"
+                    class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all">About</a>
+                <h1>foldable form</h1>
+                <a href="login.html"
+                    class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all">login</a>
+            </div>
+
+            <div data-role="content">
+                <form method="post">
+                    <fieldset data-role="collapsible">
+                        <legend>please click me</legend>
+                        <label for="name">full name:</label>
+                        <input type="text" name="text" id="name">
+                        <p>favourite color:</p>
+
+                        <div id="cg" data-role="controlgroup">
+                            <label for="red">red</label>
+                            <input type="checkbox" name="favcolor" id="red" value="red">
+                            <label for="green">green</label>
+                            <input type="checkbox" name="favcolor" id="green" value="green">
+                            <label for="blue">blue</label>
+                            <input type="checkbox" name="favcolor" id="blue" value="blue">
+                        </div>  
+
+                        <label for="slider-1">Slider:</label>
+                        <input name="slider-1" id="slider-1" min="0" max="100" value="50" type="range">
+                            
+                        <label for="slider-2">Slider:</label>
+                        <input name="slider-2" id="slider-2" min="0" max="100" value="70" type="range">
+
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <legend>Horizontal:</legend>
+                            <input name="checkbox-h-2a" id="checkbox-h-2a" type="checkbox">
+                            <label for="checkbox-h-2a">One</label>
+                            <input name="checkbox-h-2b" id="checkbox-h-2b" type="checkbox">
+                            <label for="checkbox-h-2b">Two</label>
+                            <input name="checkbox-h-2c" id="checkbox-h-2c" type="checkbox">
+                            <label for="checkbox-h-2c">Three</label>
+                        </fieldset>
+
+                        <input type="button" data-inline="true" value="submit" onclick="take_pic();">
+                    </fieldset>
+                </form>
+                
+                <button onclick="captureAndDecode();">Decode</button><br>        
+                <p id="qrContent"></p>
+
+            </div>
+        </div>
+
+        <div data-role="page" id="about">
+            <div data-role="header">
+                <h1>About this app</h1>
+            </div>
+            <div data-role="content">
+                <p>App made by adolli. Thanks.</p>
+            </div>
+
+        </div>
+    </body>
+</html>

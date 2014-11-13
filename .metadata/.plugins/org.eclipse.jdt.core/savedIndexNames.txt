@@ -1,0 +1,6 @@
+INDEX VERSION 1.127+E:\github\phoenix.contact.mobile\.metadata\.plugins\org.eclipse.jdt.core
+1209826380.index
+3923473036.index
+3776973308.index
+1284074322.index
+2909273007.index
