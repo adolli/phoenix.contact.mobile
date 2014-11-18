@@ -41,7 +41,6 @@
             });
 
             function read(a) {
-                console.log(a);
                 $("#qrContent").text(a);
             }
 
@@ -49,14 +48,14 @@
                 navigator.camera.getPicture(function(image) {
                     qrcode.callback = read; 
                     qrcode.decode("data:image/jpeg;base64," + image);
-                    console.log("decoding");
+                    $("#qrContent").text("decoding");
                 }, function(e) {
                     console.log("camera error: " + e);
                 }, { 
-                    quality: 40,
+                    quality: 20,
                     destinationType: destinationType.DATA_URL,
-                    targetWidth: 800,
-                    targetHeight: 600
+                    targetWidth: 640,
+                    targetHeight: 480
                 }); 
             }
         </script>
@@ -69,7 +68,7 @@
                     class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all">About</a>
                 <h1>foldable form</h1>
                 <a href="login.html"
-                    class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all">login</a>
+                    class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all">login</a>
             </div>
 
             <div data-role="content">

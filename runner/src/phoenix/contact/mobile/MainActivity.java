@@ -10,7 +10,8 @@ public class MainActivity extends DroidGap
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		super.loadUrl("file:///android_asset/www/index.html");
+		super.loadUrl("file:///android_asset/www/login.html");
+		//super.loadUrl("http://localhost:8080/page");
 	}
 }
 

@@ -1,0 +1,26 @@
+from bottle import run, request,response, post, get, template, route, static_file, redirect, Bottle, HTTPResponse, HTTPError,debug,SimpleTemplate,abort
+
+app = Bottle()
+
+@app.route('/hello/index')
+def index():
+    print ("hello")
+    return template("<body>{{name}}</body>", name="hello world")
+
+@app.route('/ajaxtest.js')
+def ajaxtest_js():
+    print("ajaxtest_js")
+    return file("ajaxtest.js")
+
+@app.route('/ajaxtest', method='POST')
+def ajaxtest():
+    print("start")
+    val = request.POST.get('key')
+    print ("val" + val)
+    ret = {}
+    ret['meg'] = '1'
+    ret['key'] = val
+    print ("end")
+    return ret
+
+app.run(host='localhost', port=8080)
